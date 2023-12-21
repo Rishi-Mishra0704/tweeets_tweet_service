@@ -21,3 +21,12 @@ class TweetAPITest(TestCase):
         self.assertEqual(Tweet.objects.count(), 1)
         self.assertEqual(Tweet.objects.get().title, 'New Tweet')
 
+
+    def test_get_tweets(self):
+        url = reverse('tweets_api')
+
+        response = self.client.get(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('tweets', response.data)
+        self.assertEqual(len(response.data['tweets']), Tweet.objects.count())
