@@ -1,6 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Tweet, Like, Comment
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+
+        
 class CommentSerializer(serializers.ModelSerializer):
     user__username = serializers.ReadOnlyField(source='user.username')  # Adjust this line
 
