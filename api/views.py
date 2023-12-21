@@ -36,3 +36,19 @@ def comment_tweet(request, tweet_id):
         return Response({'detail': 'Comment added successfully.'}, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+@api_view(['POST'])
+def like_tweet(request, tweet_id):
+    try:
+        tweet = Tweet.objects.get(pk=tweet_id)
+    except Tweet.DoesNotExist:
+        return Response({'detail': 'Tweet not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = LikeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user, tweet=tweet)
+        return Response({'detail': 'Tweet liked successfully.'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
