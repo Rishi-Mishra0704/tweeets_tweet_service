@@ -35,7 +35,6 @@ class Follow(models.Model):
     followee = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='followers', db_column='followee_id')
 
     class Meta:
-        managed = False
         db_table = 'follows'
 
     def __str__(self):
