@@ -18,7 +18,7 @@ class Like(models.Model):
         return f"{self.user.username} likes {self.tweet.title}"
 
 class Comment(models.Model):
-    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
 
