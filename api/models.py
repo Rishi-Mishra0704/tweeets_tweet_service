@@ -24,3 +24,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.tweet.title}"
+    
+
+# models.py in your Django app
+
+from django.db import models
+
+class Follow(models.Model):
+    follower = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='following', db_column='follower_id')
+    followee = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='followers', db_column='followee_id')
+
+    class Meta:
+        managed = False
+        db_table = 'follows'
+
+    def __str__(self):
+        return f"{self.follower.username} follows {self.followee.username}"
