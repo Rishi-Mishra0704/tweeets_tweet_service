@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="w-full sm:w-1/2 my-6 p-4 md:p-6 mx-auto rounded-xl bg-gray-100">
-        <h1 class="text-xl md:text-2xl text-center font-bold my-4">Sign Up</h1>
+<div class="flex justify-center items-center h-screen">
+    <div class="w-full sm:w-1/2 my-6 p-4 md:p-6 mx-auto rounded-xl bg-blue-500 ">
+        <h1 class="text-xl md:text-2xl text-center font-bold my-4 text-white">Sign Up</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
             
             <div class="mb-3">
-                <label class="block mb-2">Username</label>
+                <label class="block mb-2 text-white">Username</label>
                 {{form.username}}
             </div>
             <div class="mb-3">
@@ -35,5 +36,6 @@
 
             <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-3 px-6 text-lg rounded my-4">Sign Up</button>
         </form>
+        </div>
     </div>
 {% endblock %}
