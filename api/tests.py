@@ -51,3 +51,27 @@ class TweetAPITest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(Comment.objects.count(), 0)
+
+    def test_like_tweet(self):
+        url = reverse('like_tweet', args=[self.tweet.id])
+        data = {
+            'tweet': self.tweet.id,
+            'user': self.user.id,
+        }
+
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(self.tweet.like_set.count(), 1)
+
+    def test_like_tweet_not_found(self):
+        url = reverse('like_tweet', args=[999])
+        data = {
+            'tweet': 999,
+            'user': self.user.id,
+        }
+
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(self.tweet.like_set.count(), 0)
